@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Anniversary</title>
-  <script src="https://www.youtube.com/iframe_api"></script>
   <style>
     body {
       margin: 0;
@@ -29,14 +28,6 @@
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
-    }
-    .heart-border {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border: 8px solid transparent;
-      clip-path: path("M200 50 C250 0, 400 0, 400 150 C400 300, 200 400, 200 400 C200 400, 0 300, 0 150 C0 0, 150 0, 200 50 Z");
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
     }
     .fill {
       position: absolute;
@@ -99,11 +90,6 @@
     .photo-frame:hover {
       transform: scale(1.1);
     }
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
     .falling-heart {
       position: absolute;
       font-size: 1.5rem;
@@ -117,40 +103,36 @@
   </style>
 </head>
 <body>
-  <div id="player"></div>
   <div class="heart-container" onclick="fillHeart()">
     <div class="fill" id="fill"></div>
-    <div class="heart-border"></div>
     <div class="click-text">Click here! 💖</div>
   </div>
   <div class="content-container" id="contentContainer">
     <div class="anniversary-text">🎂Happy Anniversary!💖</div>
     <div class="photo-grid">
-      <div class="photo-frame"><img src="463908956_1790504155093977_5075643793816551247_n_2.jpg" alt="Ảnh 1"></div>
-      <div class="photo-frame"><img src="463952513_1790315671779492_2888170445373960567_n.jpg" alt="Ảnh 2"></div>
-      <div class="photo-frame"><img src="464073861_1790316315112761_5703383311592428759_n.jpg" alt="Ảnh 3"></div>
-      <div class="photo-frame"><img src="464151436_1790315151779544_5034684494483909960_n.jpg" alt="Ảnh 44"></div>
-  
+      <div class="photo-frame"><img src="image1.jpg" alt="Ảnh 1"></div>
+      <div class="photo-frame"><img src="image2.jpg" alt="Ảnh 2"></div>
+      <div class="photo-frame"><img src="image3.jpg" alt="Ảnh 3"></div>
+      <div class="photo-frame"><img src="image4.jpg" alt="Ảnh 4"></div>
+    </div>
+    <div id="spotify-player" style="display: none; margin-top: 20px;">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3uT8QfoX0BE8ZJa4h98LDW" 
+              width="300" height="80" frameborder="0" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </div>
   </div>
   <script>
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '0', width: '0',
-        videoId: 'JgTZvDbaTtg',
-        playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'JgTZvDbaTtg' }
-      });
-    }
     function fillHeart() {
       const fill = document.getElementById('fill');
       const heartContainer = document.querySelector('.heart-container');
       const contentContainer = document.getElementById('contentContainer');
       const anniversaryText = document.querySelector('.anniversary-text');
       const photoGrid = document.querySelector('.photo-grid');
-
+      const spotifyPlayer = document.getElementById('spotify-player');
+      
       fill.style.height = `100%`;
       fill.style.top = `0%`;
-
+      
       setTimeout(() => {
         heartContainer.style.display = 'none';
         contentContainer.style.display = 'flex';
@@ -159,8 +141,8 @@
         setTimeout(() => {
           photoGrid.style.opacity = 1;
           photoGrid.style.transform = 'translateY(0)';
+          spotifyPlayer.style.display = 'block';
         }, 2000);
-        player.playVideo();
       }, 6000);
     }
     function createFallingHearts() {
